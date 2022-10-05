@@ -1,14 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 const BIRD_SIZE = 20;
 const GAME_WIDTH = 500;
 const GAME_HEIGHT = 500;
+const GRAVITY = 3;
 
 function App() {
+    const [birdPosition, setBirdPosition] = useState(250)
+
+    useEffect(() => {
+        let timeId;
+        if(birdPosition < GAME_HEIGHT - BIRD_SIZE) {
+            timeId = setInterval(() => {
+                setBirdPosition((birdPosition) => birdPosition + GRAVITY)
+            }, 24)
+        }
+
+        return () => {
+            clearInterval(timeId);
+        }
+    })
     return ( 
         <Div>
+            <GameBox height={GAME_HEIGHT} width={GAME_WIDTH}>
             <Bird size={BIRD_SIZE}/>
+            </GameBox>
         </Div>
     )
 }
@@ -20,7 +37,7 @@ const Bird = styled.div`
     background-color: red;
     height: ${(props) => props.size}px;
     width: ${(props) => props.size}px;
-    top: ${(props) => props.size}px;
+    top: ${(props) => props.top}px;
     border-radius: 50%;
 `;
 
