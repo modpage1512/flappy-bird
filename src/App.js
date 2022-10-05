@@ -50,4 +50,5 @@ const Div = styled.div`
 const GameBox = styled.div`
     height: ${(props) => props.size}px;
     width: ${(props) => props.size}px;
+    background-color: blue
 `;
